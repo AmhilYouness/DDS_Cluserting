@@ -12,7 +12,7 @@ import openrouteservice as ors
 
 
 class Clustring():
-    def __init__(self,type,data,inputFiles,uzine,capacities,mix,time_max,preference):
+    def __init__(self,type,data,df,df_dict,inputFiles,uzine,capacities,mix,time_max,preference):
         self.inputFiles = inputFiles
         self.type = type
         self.data = data
@@ -22,6 +22,8 @@ class Clustring():
         self.uzine = uzine
         self.preference = preference
         self.uzine = uzine
+        self.df = df
+        self.df_dict = df_dict
         self.generate_data()
         self.play()
 
@@ -87,10 +89,10 @@ class Clustring():
                     radiuses=10000,
                 )
                 dict_routes[key] = route
-                duration = route['features'][0]['properties']['summary']['duration'] / 60 + somme_temps_attente(mycoord)
+                duration = route['features'][0]['properties']['summary']['duration'] / 60 + functions. somme_temps_attente(mycoord,self.df)
                 list_durations.append(duration)
-                if self.mix : commandes = somme_commandes_mix(mycoord,self.type)
-                else :  commandes = somme_commandes(mycoord,self.type)
+                if self.mix : commandes = functions.somme_commandes_mix(mycoord,self.type,self.df_dict)
+                else :  commandes = functions.somme_commandes(mycoord,self.type,self.df_dict)
                 list_commandes.append(commandes)
 
             max_duration = max(list_durations)

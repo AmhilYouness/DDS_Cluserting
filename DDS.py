@@ -40,7 +40,7 @@ class DDS():
     if len(self.df_dict) - 1 != self.nbr_type : raise Exception("Sorry, Number of types in the excel file is diffrente from the number you typed !") 
     for dict_key,data in self.df_dict.items():
       if dict_key != 0 :
-        self.MyClusters = Clustring(dict_key,data,self.inputFiles,self.uzine,self.capacities,self.mix,self.time_max,self.preference)
+        self.MyClusters = Clustring(dict_key,data,self.df,self.df_dict,self.inputFiles,self.uzine,self.capacities,self.mix,self.time_max,self.preference)
 
 
     """

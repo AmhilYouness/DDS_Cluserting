@@ -1,4 +1,4 @@
-def somme_temps_attente(coords):
+def somme_temps_attente(coords,df):
   somme = 0
   for coord in coords:
     c = str(coord[1]) + ' ' + str(coord[0])
@@ -13,7 +13,7 @@ def somme_temps_attente(coords):
   return somme
 
 
-def somme_commandes(coords,type):
+def somme_commandes(coords,type,df_dict):
   somme = 0
   for coord in coords:
     c = str(coord[1]) + ' ' + str(coord[0])
@@ -27,7 +27,7 @@ def somme_commandes(coords,type):
   return somme
 
 
-def somme_commandes_mix(coords,type):
+def somme_commandes_mix(coords,type,df_dict):
   somme = 0
   for coord in coords:
     c = str(coord[1]) + ' ' + str(coord[0])
