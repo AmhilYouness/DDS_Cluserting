@@ -12,14 +12,14 @@ import numpy as np
 
 
 class ExcelGenerator():
-    def __init__(self,hour_dep,min_dep,clusters,routes,mongo,userID):
+    def __init__(self,hour_dep,min_dep,dict_clients_types,uzine,routes,mongo,userID):
         self.hour_dep = hour_dep
         self.min_dep = min_dep
-        self.dict_centers = clusters.dict_centers
+        self.dict_clients_types = dict_clients_types
         self.dict_first_clustring = clusters.dict_first_clustring
         self.dict_c = clusters.dict_c
         self.file_personnes = clusters.inputFiles.file_personnes
-        self.cord_uzine = clusters.inputFiles.cord_uzine
+        self.cord_uzine = uzine
         self.df_total = pd.DataFrame(columns=['Name', 'Values','point_rassemblement','cord_rassemeblement'])
         self.routes = routes
         self.mongo = mongo

@@ -30,7 +30,7 @@ class DDS():
       self.inputFiles = InputFiles(file_clients,file_commandes,self.mongo,self.userID,self.mix)
       self.df =  self.inputFiles.df_principale;
       self.play()
-      #self.export()
+      self.export()
 
 
 
@@ -46,16 +46,20 @@ class DDS():
         print('successfully, besoin de ',self.dict_clients_types[dict_key]['nbrClusters'],'bus au total pour type ',dict_key) 
 
 
-    """
-    while time_round > int(self.time_max) :
-      self.MyClusters = Clustring(self.inputFiles,self.nbr_places_max,bus_temp,self.distance_marche_max)
-      self.MyClusters.firstClustring()
-      self.MyClusters.secondClustring()
-      self.MyRoutes = Routing(self.MyClusters , self.preference , profile ,ORS_key2 )
-      time_round = self.MyRoutes.time_calc
-      bus_temp=bus_temp+1
-    if(time_round!=0):
-      print('successfully, besoin de ',len(self.MyClusters.dict_centers),'bus au total')"""
+
+  def export(self):
+      #for key, value in self.MyRoutes.routes.items():
+      #   self.mongo.insert_routes(value)
+      outPut = OutPutFiles(self.dict_clients_types,self.mongo,self.userID,self.uzine)
+      outPut.export_all()
+      location = list(reversed(self.uzine))
+      map = Map(location,self.dict_clients_types,self.uzine,self.userID)
+      map.export_all_maps()
+     
+      
+
+
+  
 
 
   
