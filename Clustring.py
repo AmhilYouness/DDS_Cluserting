@@ -47,6 +47,7 @@ class Clustring():
     
     def play(self):
         client1 = ors.Client(key='5b3ce3597851110001cf6248c40727486c3b4440a5338bb9cc551c58')
+        client2 = ors.Client(key='5b3ce3597851110001cf624873cfc5a6a9e34d7eba09987f00e30062')
         max_duration = self.time_max + 1
         max_commande = self.capacite + 1
         itr = 0
@@ -79,7 +80,7 @@ class Clustring():
                     mycoord.append(list(reversed(v)))
                 mycoord.append(list(reversed(self.uzine)))
                 
-                route = client1.directions(
+                route = client2.directions(
                     coordinates=mycoord,
                     profile='driving-car',
                     format='geojson',
@@ -100,7 +101,7 @@ class Clustring():
             print(self.Nbr_clusters)
             print(list_durations)
             print(list_commandes)
-            if itr == 0 : self.Nbr_clusters = self.Nbr_clusters + 1 ; itr = 0;
+            if itr == 2 : self.Nbr_clusters = self.Nbr_clusters + 1 ; itr = 0;
 
         if itr == 0 : self.Nbr_clusters = self.Nbr_clusters - 1
         print("Nombre groups : ",self.Nbr_clusters)
