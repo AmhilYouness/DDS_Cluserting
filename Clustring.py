@@ -12,7 +12,7 @@ import openrouteservice as ors
 
 
 class Clustring():
-    def __init__(self,type,data,df,df_dict,inputFiles,uzine,capacities,mix,time_max,preference):
+    def __init__(self,type,data,df,df_dict,inputFiles,uzine,capacities,mix,time_max,preference,orsClient):
         self.inputFiles = inputFiles
         self.type = type
         self.data = data
@@ -24,6 +24,7 @@ class Clustring():
         self.uzine = uzine
         self.df = df
         self.df_dict = df_dict
+        self.orsClient = orsClient
         self.generate_data()
         self.play()
 
@@ -83,7 +84,7 @@ class Clustring():
                     mycoord.append(list(reversed(v)))
                 mycoord.append(list(reversed(self.uzine)))
                 
-                route = client4.directions(
+                route = orsClient.directions(
                     coordinates=mycoord,
                     profile='driving-car',
                     format='geojson',

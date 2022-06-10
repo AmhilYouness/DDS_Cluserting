@@ -18,7 +18,7 @@ ORS_key2 = '5b3ce3597851110001cf624873cfc5a6a9e34d7eba09987f00e30062'
 
 
 class DDS():
-  def __init__(self,file_clients,file_commandes,uzine,userID,mongo,time_max,nbr_type,capacities,mix,preference):
+  def __init__(self,file_clients,file_commandes,uzine,userID,mongo,time_max,nbr_type,capacities,mix,preference,orsClient):
       self.userID = userID
       self.mongo = mongo
       self.time_max = time_max
@@ -27,6 +27,7 @@ class DDS():
       self.mix = mix
       self.preference = preference
       self.uzine = uzine
+      self.orsClient = orsClient
       self.inputFiles = InputFiles(file_clients,file_commandes,self.mongo,self.userID,self.mix)
       self.df =  self.inputFiles.df_principale;
       self.play()
@@ -41,7 +42,7 @@ class DDS():
     self.dict_clients_types = {}
     for dict_key,data in self.df_dict.items():
       if dict_key != 0 :
-        self.MyClusters = Clustring(dict_key,data,self.df,self.df_dict,self.inputFiles,self.uzine,self.capacities,self.mix,self.time_max,self.preference)
+        self.MyClusters = Clustring(dict_key,data,self.df,self.df_dict,self.inputFiles,self.uzine,self.capacities,self.mix,self.time_max,self.preference,self.orsClient)
         self.dict_clients_types[dict_key] = {'nbrClusters' : self.MyClusters.Nbr_clusters , 'dict_all' : self.MyClusters.dict_all , 'centroids' : self.MyClusters.centroids , 'list_durations' : self.MyClusters.list_durations , 'list_commandes' : self.MyClusters.list_commandes , 'routes' : self.MyClusters.dict_routes }
         print('successfully, besoin de ',self.dict_clients_types[dict_key]['nbrClusters'],'bus au total pour type ',dict_key) 
 
@@ -53,7 +54,7 @@ class DDS():
       outPut = OutPutFiles(self.dict_clients_types,self.mongo,self.userID,self.uzine)
       outPut.export_all()
       location = list(reversed(self.uzine))
-      map = Map(self.dict_clients_types,self.uzine,self.userID,self.df)
+      map = Map(self.dict_clients_types,self.uzine,self.userID,self.df,self.orsClient)
       map.export_all_maps()
      
       

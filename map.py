@@ -24,11 +24,12 @@ import functions
 
 
 class Map:
-    def __init__(self ,dict_clients_types,uzine, userID,df):
+    def __init__(self ,dict_clients_types,uzine, userID,df,orsClient):
         self.df = df
         self.dict_clients_types = dict_clients_types
         self.uzine = uzine
         self.userID = userID
+        self.orsClient = orsClient
         self.generate_maps_folder()
         self.clientORS  = ors.Client(key='5b3ce3597851110001cf6248b852cf5e68084fbc95a61d739c48b976')
 
@@ -54,39 +55,13 @@ class Map:
 
 
     
-    def export_map(self,typeCleint):
-        self.map_UMM = folium.Map(location = self.location, width = "100%", zoom_start = 10) 
-        data = self.dict_clients_types[typeCleint]
-        for group in range(len(data['dict_all'])):
-            cords = []
-            latt=[row[0] for row in data['dict_all'][group]]
-            longg=[row[1] for row in data['dict_all'][group]]
-            list1=self.merge(latt, longg)
-            geo_json=MultiPoint(list1)
-            cords.append(list1)
-            cords[0].append(self.uzine)
-            for idx, coords in enumerate(cords[0]):
-                if(len(cords[0])-1 == idx):  
-                    folium.Marker(location=list(reversed(coords)),icon=folium.Icon(icon_color='#ffffff',icon='fa-industry',  prefix='fa')).add_to(self.map_UMM)
-                    folium.map.Marker(location=list(reversed(coords)),icon=DivIcon(icon_size=(250,36),icon_anchor=(0,0),html='<div style = "width: 60px;font-size:15px;font-weight: bold; background-color: yellow;">Entrepôt</div>',)).add_to(self.map_UMM)
-                else:
-                    folium.Marker(location=list(reversed(coords)),popup=str(group),icon=folium.Icon(icon_color='#ffffff',icon='fa-user',  prefix='fa')).add_to(self.map_UMM)
-                    folium.map.Marker(location=list(reversed(coords)),icon=DivIcon(icon_size=(250,36),icon_anchor=(0,0),html='<div style="width: 50px;font-size:15px;font-weight: bold; background-color: yellow;">Point '+str(idx)+'</div>',)).add_to(self.map_UMM)
-
-
-            #folium.PolyLine(locations=[list(reversed(coord)) for coord in self.routes[index]['features'][0]['geometry']['coordinates']]).add_to(self.map_UMM)
-            plugins.AntPath(locations=[list(reversed(coord)) for coord in data['routes'][group]['features'][0]['geometry']['coordinates']]).add_to(self.map_UMM)
-            type_path = self.maps_html + '/type_' + str(typeCleint)
-            if not os.path.exists(type_path):
-                os.makedirs(type_path)
-            self.map_UMM.save(type_path + "/map_" + str(group) + ".html")
+   
 
 
 
 
 
-
-    def export_map2(self,typeCleint,group):
+    def export_map(self,typeCleint,group):
         Myclients = self.dict_clients_types[typeCleint]['dict_all']
         mycoord = []
         mycoord.append(list(reversed(self.uzine)))
@@ -128,7 +103,7 @@ class Map:
     def export_all_maps(self):
         for key in self.dict_clients_types.keys():
             for group in self.dict_clients_types[key]['dict_all'].keys():
-                self.export_map2(key,group)
+                self.export_map(key,group)
 
 
 
