@@ -62,7 +62,7 @@ class Clustring():
             most_common,num_most_common = Counter(c).most_common(1)[0]
             self.centroids  = algo.cluster_centers_ 
             self.dict_all = {}
-            dict_routes = {}
+            self.dict_routes = {}
             for j in range(self.Nbr_clusters):
                 self.dict_all[j] = []
                 for i in range(len(c)):
@@ -89,7 +89,7 @@ class Clustring():
                     validate = True,
                     radiuses=10000,
                 )
-                dict_routes[key] = route
+                self.dict_routes[key] = route
                 duration = route['features'][0]['properties']['summary']['duration'] / 60 + functions. somme_temps_attente(mycoord,self.df)
                 self.list_durations.append(duration)
                 if self.mix : commandes = functions.somme_commandes_mix(mycoord,self.type,self.df_dict,self.df)
