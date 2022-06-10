@@ -91,8 +91,8 @@ class Clustring():
                 dict_routes[key] = route
                 duration = route['features'][0]['properties']['summary']['duration'] / 60 + functions. somme_temps_attente(mycoord,self.df)
                 list_durations.append(duration)
-                if self.mix : commandes = functions.somme_commandes_mix(mycoord,self.type,self.df_dict)
-                else :  commandes = functions.somme_commandes(mycoord,self.type,self.df_dict)
+                if self.mix : commandes = functions.somme_commandes_mix(mycoord,self.type,self.df_dict,self.df)
+                else :  commandes = functions.somme_commandes(mycoord,self.type,self.df_dict,self.df)
                 list_commandes.append(commandes)
 
             max_duration = max(list_durations)
