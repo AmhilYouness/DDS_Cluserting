@@ -38,9 +38,11 @@ class DDS():
   def play(self):
     self.df_dict = {type: self.df[self.df['Type camion'] == type] for type in self.df['Type camion'].unique()}
     if len(self.df_dict) - 1 != self.nbr_type : raise Exception("Sorry, Number of types in the excel file is diffrente from the number you typed !") 
+    self.dict_clients_types = {}
     for dict_key,data in self.df_dict.items():
       if dict_key != 0 :
         self.MyClusters = Clustring(dict_key,data,self.df,self.df_dict,self.inputFiles,self.uzine,self.capacities,self.mix,self.time_max,self.preference)
+        self.dict_clients_types[self.type] = {'nbrClusters' : self.MyClusters.Nbr_clusters , 'dict_all' : self.MyClusters.dict_all , 'centroids' : self.MyClusters.centroids , 'list_durations' : self.MyClusters.list_durations , 'list_commandes' : self.MyClusters.list_commandes }
 
 
     """
