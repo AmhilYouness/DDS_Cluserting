@@ -6,6 +6,7 @@ from scipy.spatial.distance import pdist, squareform
 import math
 import functions
 import numpy as np
+import openrouteservice as ors
 
 
 
@@ -43,6 +44,7 @@ class Clustring():
 
     
     def play(self):
+        client1 = ors.Client(key='5b3ce3597851110001cf6248c40727486c3b4440a5338bb9cc551c58')
         max_duration = self.time_max + 1
         max_commande = self.capacite + 1
         itr = 0
@@ -62,7 +64,7 @@ class Clustring():
                 dict_all[j] = []
                 for i in range(len(c)):
                     if(c[i]==j):
-                        dict_all[j].append(coordinates[i].tolist())
+                        dict_all[j].append(self.coordinates[i].tolist())
                 if(len(dict_all[j]) > 70):
                     too_many = True
             if too_many : 
@@ -75,7 +77,7 @@ class Clustring():
                     mycoord.append(list(reversed(v)))
                 mycoord.append(list(reversed(self.uzine)))
                 
-                route = client4.directions(
+                route = client1.directions(
                     coordinates=mycoord,
                     profile='driving-car',
                     format='geojson',

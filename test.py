@@ -5,13 +5,13 @@ from mongo import MyMongoDB
 
 
 
-nbr_type = int(input("Donner le nombre de types de camions : "))
+nbr_type = 2 #int(input("Donner le nombre de types de camions : "))
 capacities = {}
 for i in range(nbr_type):
   cap = int(input("Donner la capacité par palette du camion de type "+ str(i+1) + " : " ))
   capacities[i+1] = cap
 
-melanger = input("Mélanger les commandes dans une seule et même unité ? Oui / Non : ")
+melanger = 'oui'#input("Mélanger les commandes dans une seule et même unité ? Oui / Non : ")
 if melanger.lower() == 'oui':
   mix = True
 else :
