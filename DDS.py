@@ -53,7 +53,7 @@ class DDS():
       outPut = OutPutFiles(self.dict_clients_types,self.mongo,self.userID,self.uzine)
       outPut.export_all()
       location = list(reversed(self.uzine))
-      map = Map(location,self.dict_clients_types,self.uzine,self.userID)
+      map = Map(self.dict_clients_types,self.uzine,self.userID,self.df)
       map.export_all_maps()
      
       
