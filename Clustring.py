@@ -84,7 +84,7 @@ class Clustring():
                     mycoord.append(list(reversed(v)))
                 mycoord.append(list(reversed(self.uzine)))
                 
-                route = orsClient.directions(
+                route = self.orsClient.directions(
                     coordinates=mycoord,
                     profile='driving-car',
                     format='geojson',

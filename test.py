@@ -32,5 +32,8 @@ mongo = MyMongoDB()
 
 prefrence = 'fastest'
 
+heure_debut = 8
+min_debut = 30
 
-dds = DDS(file_clients,file_cmds,uzine,1,mongo,tmps_max,nbr_type,capacities,mix,prefrence)
+
+dds = DDS(file_clients,file_cmds,uzine,1,mongo,tmps_max,nbr_type,capacities,mix,prefrence,client3,heure_debut,min_debut)

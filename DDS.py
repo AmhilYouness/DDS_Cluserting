@@ -9,16 +9,11 @@ import json
 from mongo import MyMongoDB
 
 
-ORS_key1 = '5b3ce3597851110001cf6248c40727486c3b4440a5338bb9cc551c58'
-ORS_key2 = '5b3ce3597851110001cf624873cfc5a6a9e34d7eba09987f00e30062'
-
- 
-
 
 
 
 class DDS():
-  def __init__(self,file_clients,file_commandes,uzine,userID,mongo,time_max,nbr_type,capacities,mix,preference,orsClient):
+  def __init__(self,file_clients,file_commandes,uzine,userID,mongo,time_max,nbr_type,capacities,mix,preference,orsClient,heure_debut,min_debut):
       self.userID = userID
       self.mongo = mongo
       self.time_max = time_max
@@ -28,6 +23,8 @@ class DDS():
       self.preference = preference
       self.uzine = uzine
       self.orsClient = orsClient
+      self.heure_debut = heure_debut
+      self.min_debut = min_debut
       self.inputFiles = InputFiles(file_clients,file_commandes,self.mongo,self.userID,self.mix)
       self.df =  self.inputFiles.df_principale;
       self.play()
@@ -49,13 +46,13 @@ class DDS():
 
 
   def export(self):
-      #for key, value in self.MyRoutes.routes.items():
-      #   self.mongo.insert_routes(value)
       outPut = OutPutFiles(self.dict_clients_types,self.mongo,self.userID,self.uzine)
       outPut.export_all()
       location = list(reversed(self.uzine))
       map = Map(self.dict_clients_types,self.uzine,self.userID,self.df,self.orsClient)
       map.export_all_maps()
+      excel = ExcelGenerator(self.heure_debut,self.min_dep,self.dict_clients_types ,self.inputFiles, self.uzine, self.mongo,self.userID)
+      excel.export()
      
       
 

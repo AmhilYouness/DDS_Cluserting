@@ -39,3 +39,9 @@ def somme_commandes_mix(coords,type,df_dict,df):
       commande = round(commande,2)
     somme += commande
   return round(somme,2)
+
+
+def open_geojsonFile(file):
+        with open(file) as f:
+            gj = geojson.load(f)
+        return gj
